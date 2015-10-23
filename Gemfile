@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.16'
 gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bcrypt-ruby'
 gem 'jquery-rails'
 
 group :assets do
@@ -17,6 +18,10 @@ end
 
 group :test do
   gem 'capybara', '1.1.2'
+end
+
+group :development do
+  gem 'annotate', '2.5.0'
 end
 
 group :production do
