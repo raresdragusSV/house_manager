@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.16'
+gem 'bootstrap-sass', '~> 3.3.5'
 gem 'jquery-rails'
 
 group :assets do
