@@ -1,0 +1,9 @@
+<li>
+  <%= gravatar_for user, size: 52 %>
+  <%= link_to user.name, user %>
+  <% if can?(:destroy, user) && !current_user?(user)%>
+     <%= link_to  user, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger  pull-right' do %>
+      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete
+      <% end %>
+  <% end %>
+</li>

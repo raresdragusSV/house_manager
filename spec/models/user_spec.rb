@@ -2,11 +2,12 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          primary key
+#  name            :string(255)
+#  email           :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  password_digest :string(255)
 #
 
 require 'spec_helper'
@@ -15,21 +16,23 @@ describe User do
 
   before { @user = User.new(name: 'Example User',
                             email: 'user@example.com',
-                            username: 'exampleuser',
                             password: 'foobar',
                             password_confirmation: 'foobar')
   }
+
   subject { @user }
 
   it { should respond_to(:name) }
   it { should respond_to(:email) }
-  it { should respond_to(:username) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+  it { should respond_to(:token) }
+  it { should respond_to(:roles_mask) }
   it { should respond_to(:authenticate) }
 
   it { should be_valid }
+
 
   describe 'when name is not present' do
 
@@ -45,23 +48,9 @@ describe User do
     it { should_not be_valid }
   end
 
-  describe 'when username is not present' do
-
-    before { @user.username = ' ' }
-
-    it { should_not be_valid }
-  end
-
   describe 'when name is too long' do
 
     before { @user.name = 'a' * 51 }
-
-    it { should_not be_valid }
-  end
-
-  describe 'when username is too long' do
-
-    before { @user.username = 'a' * 16 }
 
     it { should_not be_valid }
   end
@@ -91,23 +80,24 @@ describe User do
     end
   end
 
+  describe 'email address with mixed case' do
+
+    let(:mixed_case_email) { 'Foo@barExaPlE.Com' }
+
+    it 'should be saved as all lower-case' do
+
+      @user.email = mixed_case_email
+      @user.save
+      @user.reload.email.should == mixed_case_email.downcase
+    end
+  end
+
   describe 'when email address is already taken' do
 
     before do
       user_with_same_email = @user.dup
       user_with_same_email.email = @user.email.upcase
       user_with_same_email.save
-    end
-
-    it { should_not be_valid }
-  end
-
-  describe 'when username is already taken' do
-
-    before do
-      user_with_same_username = @user.dup
-      user_with_same_username.username = @user.username.upcase
-      user_with_same_username.save
     end
 
     it { should_not be_valid }
@@ -158,5 +148,12 @@ describe User do
       it { should_not == user_for_invalid_password }
       specify { user_for_invalid_password.should be_false }
     end
+  end
+
+  describe 'token' do
+
+    before { @user.save }
+
+    its(:token) { should_not be_blank }
   end
 end
