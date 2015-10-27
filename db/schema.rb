@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151026131104) do
+ActiveRecord::Schema.define(:version => 20151027150058) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -21,6 +21,11 @@ ActiveRecord::Schema.define(:version => 20151026131104) do
     t.string   "password_digest"
     t.string   "token"
     t.integer  "roles_mask"
+    t.string   "state"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
+    t.float    "debt"
+    t.integer  "house_id"
   end
 
   add_index "users", ["token"], :name => "index_users_on_token"

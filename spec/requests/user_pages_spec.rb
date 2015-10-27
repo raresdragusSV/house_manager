@@ -7,7 +7,11 @@ describe 'User pages' do
   describe 'profile page' do
 
     let(:user) { FactoryGirl.create(:user) }
-    before { visit user_path(user) }
+
+    before do
+      sign_in user
+      visit user_path(user)
+    end
 
     it { should have_selector('h1', text: user.name) }
   end
@@ -51,11 +55,8 @@ describe 'User pages' do
       describe 'after saving the user' do
 
         before { click_button submit }
-        let(:user) { User.find_by_email('user@example.com') }
 
-        it { should have_selector('h1', text: user.name) }
-        it { should have_selector('div.alert.alert-success', text: 'Welcome') }
-        it { should have_link('Sign out') }
+        it { should have_content('To complete registration, please check you email')}
       end
     end
   end

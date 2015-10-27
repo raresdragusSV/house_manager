@@ -2,11 +2,13 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.16'
 gem 'bootstrap-sass', '~> 3.3.5'
-gem 'bcrypt-ruby'
+gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'jquery-rails'
 gem 'cancan'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'mail'
+gem 'transitions', :require => ['transitions', 'active_record/transitions']
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

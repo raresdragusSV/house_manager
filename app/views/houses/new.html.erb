@@ -1,0 +1,37 @@
+<h1 class="center"> Create House Project</h1>
+
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <%= form_for :house, class: 'form-horizontal' do |f| %>
+
+      <div class="form-group">
+        <%= f.label :name , class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10">
+          <%= f.text_field :name, class: 'form-control', placeholder: 'Enter the house name' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :addrress, class: 'col-sm-2 control-label'%>
+        <div class="col-sm-10">
+          <%= f.text_field :address, class:'form-control', placeholder: 'Enter the house address', required: :required %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :city, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10">
+           <%= f.text_field :city, class: 'form-control', placeholder: 'Enter the city', required: :required %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :country, class: 'col-sm-2 control-label' %>
+        <div class="col-sm-10">
+          <%= f.text_field :country, class: 'form-control', placeholder: 'Enter the country', required: :required %>
+        </div>
+      </div>
+      <%= f.submit "Create House Project", class: "btn btn-lg btn-primary" %>
+    <% end %>
+  </div>
+</div>

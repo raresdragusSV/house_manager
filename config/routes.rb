@@ -1,6 +1,13 @@
 HouseManager::Application.routes.draw do
-  resources :users
+  resources :users do
+    member do
+      get :confirm
+    end
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
+  resources :password_resets, only: [:new, :edit, :create, :update]
+  resources :houses
 
   root              to: 'static_pages#home'
 

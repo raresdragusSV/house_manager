@@ -8,9 +8,12 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  password_digest :string(255)
+#  token           :string(255)
+#  roles_mask      :integer
 #
 
 class User < ActiveRecord::Base
+  include ActiveRecord::Transitions
   attr_accessible :name, :email, :password, :password_confirmation
 
   has_secure_password
@@ -20,7 +23,16 @@ class User < ActiveRecord::Base
   ROLES = %w[admin regular]
 
   before_save { |user| user.email = email.downcase }
-  before_save :create_token
+  before_create :create_token
+
+  state_machine do
+    state :inactive
+    state :active
+
+    event :activate do
+      transitions :to => :active, :from => :inactive
+    end
+  end
 
 
   validates :name, presence: true, length: { maximum: 50 }
@@ -30,9 +42,22 @@ class User < ActiveRecord::Base
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
 
-  validates :password, presence: true, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  validates :password, presence: true, length: { minimum: 6 }, :if => :password_required?
+  validates :password_confirmation, presence: true, :if => :password_required?
   after_validation { self.errors.messages.delete(:password_digest) }
+
+  def password_required?
+    # Validation required if this is a new record or the password is being
+    # updated.
+    self.new_record? || !self.password.nil?
+  end
+
+  def send_password_reset
+    self.password_reset_token = SecureRandom.urlsafe_base64
+    self.password_reset_sent_at = Time.zone.now
+    save!# (validate: false)
+    UserMailer.password_reset(self).deliver
+  end
 
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum
@@ -45,6 +70,10 @@ class User < ActiveRecord::Base
   def role?(role)
     roles.include? role.to_s
   end
+
+  # def valid_roles
+  #   ROLES
+  # end
 
   private
 

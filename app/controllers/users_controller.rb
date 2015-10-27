@@ -1,8 +1,15 @@
 class UsersController < ApplicationController
+  before_filter :find_token, only: :confirm
   load_and_authorize_resource
 
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
-  before_filter :correct_user,   only: [:edit, :update]
+
+  # before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  # before_filter :correct_user,   only: [:edit, :update]
+  # before_filter :admin_user,     only: :destroy
+  # before_filter :info_signed_in_user, only: [:new, :create]
+
+
+
 
   def index
     @users = User.paginate(page: params[:page])
@@ -19,9 +26,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      sign_in @user
-      flash[:success] = "Welcome to the Home Manager Project!"
-      redirect_to @user
+      UserMailer.signup_confirmation(@user).deliver
+      flash[:warning] = 'To complete registration, please check you email'
+      redirect_to root_url
     else
       render 'new'
     end
@@ -48,17 +55,50 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  private
-
-  def signed_in_user
-    unless signed_in?
-      store_location
-      redirect_to signin_url, notice: 'Please sign in.'
+  def confirm
+    if @user
+      if @user.state == 'inactive'
+        @user.activate!
+        @user.roles=(['regular'])
+        @user.save!
+        sign_in @user
+        flash[:success] = "Account confirmed. Welcome #{@user.name}!"
+        redirect_to @user
+      else
+        sign_out if signed_in?
+        flash[:warning] = 'Account is already activated. Please sign in instead.'
+        redirect_to signin_path
+      end
+    else
+      flash[:danger] = 'Invalid confirmation token'
+      sign_out if signed_in?
+      redirect_to root_url
     end
   end
 
-  def correct_user
-    @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user)
+  def find_token
+    @user = User.find_by_token(params[:id])
   end
+
+  private
+
+  # def signed_in_user
+  #   unless signed_in?
+  #     store_location
+  #     redirect_to signin_url, notice: 'Please sign in.'
+  #   end
+  # end
+
+  # def correct_user
+  #   @user = User.find(params[:id])
+  #   redirect_to(root_url) unless current_user?(@user)
+  # end
+
+  # def admin_user
+  #     redirect_to(root_url) unless current_user.role?(:admin)
+  # end
+
+  # def info_signed_in_user
+  #   redirect_to root_url, notice: "You are registered." if signed_in?
+  # end
 end

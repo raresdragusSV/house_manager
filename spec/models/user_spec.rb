@@ -8,6 +8,8 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  password_digest :string(255)
+#  token           :string(255)
+#  roles_mask      :integer
 #
 
 require 'spec_helper'

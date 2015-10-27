@@ -1,7 +1,11 @@
-<div class="jumbotron bg-img">
-  <h1>Welcome to Home Manager</h1>
-  <p>Respect our needs</p>
+<% if signed_in? %>
+  <% if current_user.house_id.nil? %>
+    <%= render 'shared/info_project' %>
+  <% else %>
+    <%= render 'shared/user_page' %>
+  <% end %>
+<% else %>
+  <%= render 'shared/index_page' %>
+<% end %>
 
-  <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
-</div>
 
