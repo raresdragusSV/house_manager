@@ -18,6 +18,11 @@ class User < ActiveRecord::Base
 
   has_secure_password
 
+  has_many :house_admins, foreign_key: 'user_id'
+  has_many :houses, through: :house_admins
+
+  belongs_to :house
+
   scope :with_role, lambda{ |role| {conditions: "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
 
   ROLES = %w[admin regular]
@@ -46,6 +51,10 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true, :if => :password_required?
   after_validation { self.errors.messages.delete(:password_digest) }
 
+  def house_admin!(house)
+    house_admins.create!(house_id: house.id)
+  end
+
   def password_required?
     # Validation required if this is a new record or the password is being
     # updated.
@@ -57,6 +66,10 @@ class User < ActiveRecord::Base
     self.password_reset_sent_at = Time.zone.now
     save!# (validate: false)
     UserMailer.password_reset(self).deliver
+  end
+
+  def send_invitation(password)
+    UserMailer.invitation(self, password).deliver
   end
 
   def roles=(roles)
@@ -71,10 +84,8 @@ class User < ActiveRecord::Base
     roles.include? role.to_s
   end
 
-  # def valid_roles
-  #   ROLES
-  # end
-
+  def self.find_home
+  end
   private
 
   def create_token

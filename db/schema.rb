@@ -11,7 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151027150058) do
+ActiveRecord::Schema.define(:version => 20151028123907) do
+
+  create_table "house_admins", :force => true do |t|
+    t.integer  "house_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "house_admins", ["house_id", "user_id"], :name => "index_house_admins_on_house_id_and_user_id", :unique => true
+  add_index "house_admins", ["house_id"], :name => "index_house_admins_on_house_id"
+  add_index "house_admins", ["user_id"], :name => "index_house_admins_on_user_id"
+
+  create_table "houses", :force => true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "country"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "name"

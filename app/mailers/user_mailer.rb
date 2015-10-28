@@ -10,4 +10,10 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail(to: "#{@user.email}>", subject: 'Password Reset')
   end
+
+  def invitation(user, password)
+    @user = user
+    @password = password
+    mail(to: "#{@user.email}>", subject: 'Home Manager Project Invitation')
+  end
 end

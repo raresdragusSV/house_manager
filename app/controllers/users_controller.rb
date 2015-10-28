@@ -63,7 +63,7 @@ class UsersController < ApplicationController
         @user.save!
         sign_in @user
         flash[:success] = "Account confirmed. Welcome #{@user.name}!"
-        redirect_to @user
+        redirect_to root_url
       else
         sign_out if signed_in?
         flash[:warning] = 'Account is already activated. Please sign in instead.'
@@ -81,24 +81,4 @@ class UsersController < ApplicationController
   end
 
   private
-
-  # def signed_in_user
-  #   unless signed_in?
-  #     store_location
-  #     redirect_to signin_url, notice: 'Please sign in.'
-  #   end
-  # end
-
-  # def correct_user
-  #   @user = User.find(params[:id])
-  #   redirect_to(root_url) unless current_user?(@user)
-  # end
-
-  # def admin_user
-  #     redirect_to(root_url) unless current_user.role?(:admin)
-  # end
-
-  # def info_signed_in_user
-  #   redirect_to root_url, notice: "You are registered." if signed_in?
-  # end
 end

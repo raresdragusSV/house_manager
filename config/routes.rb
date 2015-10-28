@@ -8,6 +8,8 @@ HouseManager::Application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :password_resets, only: [:new, :edit, :create, :update]
   resources :houses
+  resources :user_invitations, only: [:new, :create]
+
 
   root              to: 'static_pages#home'
 

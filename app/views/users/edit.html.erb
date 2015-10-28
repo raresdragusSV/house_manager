@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2">
     <%= form_for @user, class: 'form-horizontal' do |f| %>
-      <%= render 'shared/error_messages' %>
+      <%= render 'shared/error_messages', object: f.object %>
       <div class="form-group">
         <%= f.label :name , class: 'col-sm-2 control-label' %>
         <div class="col-sm-10">
