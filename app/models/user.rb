@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
 
   has_many :house_admins, foreign_key: 'user_id'
   has_many :houses, through: :house_admins
+  has_many :expenditures
+
+  has_many :expenditure_users, foreign_key: 'user_id'
+  has_many :expenditures, through: :expenditure_users
 
   belongs_to :house
 

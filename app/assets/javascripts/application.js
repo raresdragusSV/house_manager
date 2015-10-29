@@ -11,6 +11,11 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require bootstrap.min
 //= require_tree .
+
+$(function() {
+  $("#expenditure_until").datepicker();
+})

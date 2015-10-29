@@ -3,6 +3,7 @@
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2">
     <%= form_for(:user_invitation, url: user_invitations_path) do |f| %>
+
       <%= f.label :email %>
       <%= f.text_field :email %>
 

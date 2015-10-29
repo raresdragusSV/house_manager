@@ -11,7 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151028123907) do
+ActiveRecord::Schema.define(:version => 20151029092745) do
+
+  create_table "expenditure_users", :force => true do |t|
+    t.integer  "expenditure_id"
+    t.integer  "user_id"
+    t.string   "state"
+    t.string   "request"
+    t.float    "value"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "expenditures", :force => true do |t|
+    t.text     "description"
+    t.string   "state"
+    t.float    "value"
+    t.boolean  "to_all"
+    t.integer  "user_id"
+    t.integer  "house_id"
+    t.datetime "until"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "house_admins", :force => true do |t|
     t.integer  "house_id"

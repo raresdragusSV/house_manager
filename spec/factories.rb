@@ -11,4 +11,11 @@ FactoryGirl.define do
       roles_mask 1
     end
   end
+
+  factory :house do
+    name 'Dummy House'
+    street '1234 street'
+    city 'Cluj-Napoca'
+    country 'Romania'
+  end
 end

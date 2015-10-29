@@ -31,7 +31,7 @@ body {
 }
 
 .theme-showcase .navbar .container {
-  width: auto;
+    width: auto;
 }
 
 .bg-img {
@@ -40,9 +40,7 @@ body {
   height: 500px;
   text-align: center;
 }
-.center {
-  text-align: center;
-}
+
 
 .footer {
   text-align: center;
@@ -59,11 +57,8 @@ body {
 
 /* ----------------FORMS-------------------------- */
 
-label {
-  line-height: 35px;
-}
-
-input, textarea, select, .uneditable-input {
+input[type="text"], input[type="submit"], input[type="password"],
+input[type="number"], input[type="email"], textarea, select, .uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   padding: 10px;
@@ -74,6 +69,7 @@ input, textarea, select, .uneditable-input {
 input {
   height: auto !important;
 }
+
 
 /* ------------ USERS INDEX---------------------- */
 
@@ -89,3 +85,6 @@ input {
     }
   }
 }
+
+/* ------------- TABLES ------------------------*/
+

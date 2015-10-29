@@ -5,6 +5,7 @@ class House < ActiveRecord::Base
   has_many :users, through: :house_admins
 
   has_many :users, foreign_key: 'house_id'
+  has_many :expenditures
 
   validates :name, presence: true, length: { maximum: 150 }
   validates :address, presence: true,
