@@ -20,12 +20,15 @@ class User < ActiveRecord::Base
 
   has_many :house_admins, foreign_key: 'user_id'
   has_many :houses, through: :house_admins
-  has_many :expenditures
+
 
   has_many :expenditure_users, foreign_key: 'user_id'
   has_many :expenditures, through: :expenditure_users
 
+  has_many :owner_expenditures, foreign_key: 'owner_id', class_name: 'Expenditure'
+
   belongs_to :house
+
 
   scope :with_role, lambda{ |role| {conditions: "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
 

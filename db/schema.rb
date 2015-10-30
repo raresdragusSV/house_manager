@@ -28,11 +28,11 @@ ActiveRecord::Schema.define(:version => 20151029092745) do
     t.string   "state"
     t.float    "value"
     t.boolean  "to_all"
-    t.integer  "user_id"
+    t.integer  "owner_id"
     t.integer  "house_id"
     t.datetime "until"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "house_admins", :force => true do |t|
