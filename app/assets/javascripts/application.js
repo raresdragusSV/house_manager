@@ -18,4 +18,13 @@
 
 $(function() {
   $("#expenditure_until").datepicker();
-})
+});
+
+
+$('#expenditure_to_all').change(function() {
+  $('#autoUpdate').toggle();
+});
+
+// $('#expenditure_to_all').change(function () {
+//     $('#autoUpdate').toggle(this.checked);
+// }).change();

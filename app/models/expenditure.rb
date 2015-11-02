@@ -4,23 +4,31 @@ class Expenditure < ActiveRecord::Base
                   :state,
                   :to_all,
                   :until,
-                  :owner_id,
+                  :user_id,
                   :value,
-                  :expenditure_users_attributes
+                  :expenditureusers_attributes
+  before_save :divide_value
+  has_many :expenditureusers, foreign_key: 'expenditure_id'
+  has_many :users, through: :expenditureusers
 
-  has_many :expenditure_users, foreign_key: 'expenditure_id'
-  has_many :users, through: :expenditure_users
-
-  belongs_to :owner_expenditure, foreign_key: 'owner_id', class_name: 'User'
+  belongs_to :expenditureowner, foreign_key: 'user_id', class_name: 'User'
   belongs_to :house
 
 
-  accepts_nested_attributes_for :expenditure_users
+  accepts_nested_attributes_for :expenditureusers, allow_destroy: true
 
   validates :description , presence: true
   validates :house_id, presence: true
   validates :state, presence: true
   validates :to_all, presence: true
-  validates :owner_id, presence: true
+  validates :user_id, presence: true
   validates :value, presence: true
+
+
+  def divide_value
+    self.expenditureusers.each do |eu|
+      eu.debt  = self.value / self.expenditureusers.size
+      eu.save!
+    end
+  end
 end

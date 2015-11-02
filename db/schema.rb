@@ -11,29 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151029092745) do
-
-  create_table "expenditure_users", :force => true do |t|
-    t.integer  "expenditure_id"
-    t.integer  "user_id"
-    t.string   "state"
-    t.string   "request"
-    t.float    "value"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
+ActiveRecord::Schema.define(:version => 20151102130944) do
 
   create_table "expenditures", :force => true do |t|
     t.text     "description"
-    t.string   "state"
     t.float    "value"
     t.boolean  "to_all"
-    t.integer  "owner_id"
     t.integer  "house_id"
     t.datetime "until"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
+    t.string   "state",       :default => "unfinished"
   end
+
+  create_table "expenditureusers", :force => true do |t|
+    t.integer  "expenditure_id"
+    t.integer  "user_id"
+    t.string   "state",          :default => "unfinished"
+    t.string   "request",        :default => "waiting"
+    t.float    "debt"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
+
+  add_index "expenditureusers", ["expenditure_id", "user_id"], :name => "index_expenditureusers_on_expenditure_id_and_user_id", :unique => true
+  add_index "expenditureusers", ["expenditure_id"], :name => "index_expenditureusers_on_expenditure_id"
+  add_index "expenditureusers", ["user_id"], :name => "index_expenditureusers_on_user_id"
 
   create_table "house_admins", :force => true do |t|
     t.integer  "house_id"

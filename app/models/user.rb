@@ -22,10 +22,10 @@ class User < ActiveRecord::Base
   has_many :houses, through: :house_admins
 
 
-  has_many :expenditure_users, foreign_key: 'user_id'
-  has_many :expenditures, through: :expenditure_users
+  has_many :expenditureusers, foreign_key: 'user_id'
+  has_many :expenditures, through: :expenditureusers
 
-  has_many :owner_expenditures, foreign_key: 'owner_id', class_name: 'Expenditure'
+  has_many :expenditureowners, foreign_key: 'user_id', class_name: 'Expenditure'
 
   belongs_to :house
 
@@ -57,6 +57,10 @@ class User < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }, :if => :password_required?
   validates :password_confirmation, presence: true, :if => :password_required?
   after_validation { self.errors.messages.delete(:password_digest) }
+
+  def find_college(id)
+    self.house.users.where(id: id)[0]
+  end
 
   def house_admin!(house)
     house_admins.create!(house_id: house.id)

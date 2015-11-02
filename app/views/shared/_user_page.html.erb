@@ -98,12 +98,15 @@
       <div class="form-group">
         <%= f.label :to_all, class: 'col-sm-2 control-label' %>
         <div class="col-sm-10">
-           <%= f.check_box :to_all, {}, "true", "false"  %>
+           <%= f.check_box :to_all, { checked: true }, "true", "false"  %>
         </div>
       </div>
-      <%= f.fields_for :expenditure_users do |eu| %>
-        <%= eu.text_field :user_id %>
-      <% end %>
+      <div id="autoUpdate" style="display: none">
+        <%= f.fields_for :expenditureusers do |eu| %>
+          <%= eu.text_field :user_id, class: 'expusers' %>
+        <% end %>
+      </div>
+
 
       <%= f.submit "Create", class: "btn btn-lg btn-primary" %>
     <% end %>

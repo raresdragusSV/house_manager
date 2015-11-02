@@ -151,6 +151,7 @@ GEM
     uglifier (2.7.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    webrick (1.3.1)
     websocket (1.2.2)
     will_paginate (3.0.7)
     xpath (0.1.4)
@@ -178,6 +179,7 @@ DEPENDENCIES
   sqlite3
   transitions
   uglifier (>= 1.0.3)
+  webrick (~> 1.3.1)
   will_paginate
 
 BUNDLED WITH

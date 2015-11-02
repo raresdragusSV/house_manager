@@ -31,6 +31,7 @@ end
 
 group :development do
   gem 'annotate', '2.5.0'
+  gem 'webrick', '~> 1.3.1'
 end
 
 group :production do

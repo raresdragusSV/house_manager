@@ -5,7 +5,6 @@ class CreateExpenditures < ActiveRecord::Migration
       t.string :state
       t.float :value
       t.boolean :to_all
-      t.integer :owner_id
       t.integer :house_id
       t.datetime :until
 
