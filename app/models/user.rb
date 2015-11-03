@@ -58,10 +58,6 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true, :if => :password_required?
   after_validation { self.errors.messages.delete(:password_digest) }
 
-  def find_college(id)
-    self.house.users.where(id: id)[0]
-  end
-
   def house_admin!(house)
     house_admins.create!(house_id: house.id)
   end

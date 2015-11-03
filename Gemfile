@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'cancan'
 gem 'will_paginate'
+gem 'rails-i18n', '~> 3.0.0'
 gem 'bootstrap-will_paginate'
 gem 'mail'
 gem 'transitions', :require => ['transitions', 'active_record/transitions']

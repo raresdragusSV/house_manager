@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151102130944) do
+ActiveRecord::Schema.define(:version => 20151103135929) do
 
   create_table "expenditures", :force => true do |t|
     t.text     "description"
@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(:version => 20151102130944) do
     t.string   "state"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
-    t.float    "debt"
+    t.float    "debt",                   :default => 0.0
     t.integer  "house_id"
   end
 

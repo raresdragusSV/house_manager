@@ -3,112 +3,13 @@
       <%= render 'shared/user_info' %>
   </div>
   <div class="col-sm-6">
-    <ul class="list-group">
-      <li class="list-group-item active"><strong>House name:</strong> <%= current_user.house.name %></li>
-      <li class="list-group-item"><strong>House address:</strong> <%= current_user.house.address %></li>
-      <li class="list-group-item"><strong>House city:</strong> <%= current_user.house.city %></li>
-      <li class="list-group-item"><strong>House country:</strong> <%= current_user.house.country %></li>
-    </ul>
+    <%= render 'shared/house_info' %>
   </div>
 </div>
 <br><br>
 
-<h2 class="text-center"><span class="label label-primary">Your Debts</span></h2>
-<div class="row">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Creator</th>
-        <th>Description</th>
-        <th>State</th>
-        <th>Value</th>
-        <th>Until</th>
-        <th>Finished Request</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Mark</td>
-        <td>Bought oil</td>
-        <td><h4><span class="label label-danger">Unfished</span></h4></td>
-        <td>2.3</td>
-        <td>21 October 2015</td>
-        <td>
-          <a href="#" class="btn btn-sm btn-success">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Send
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>Mark</td>
-        <td>Bought oil</td>
-        <td><h4><span class="label label-danger">Unfished</span></h4></td>
-        <td>2.3</td>
-        <td>21 October 2015</td>
-        <td>
-          <a href="#" class="btn btn-sm btn-success">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Send
-          </a>
-        </td>
-      </tr>
-      <tr>
-        <td>Mark</td>
-        <td>Bought oil</td>
-        <td><h4><span class="label label-danger">Unfished</span></h4></td>
-        <td>2.3</td>
-        <td>21 October 2015</td>
-        <td>
-          <a href="#" class="btn btn-sm btn-success">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Send
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<%= render 'shared/debts' %>
 
 <br><br>
 
-<h2 class="text-center"><span class="label label-primary">Create Expenditure</span></h2>
-<div class="row">
-  <div class="col-sm-8 col-sm-offset-2">
-    <%= form_for @expenditure, class: 'form-horizontal' do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-      <div class="form-group">
-        <%= f.label :description , class: 'col-sm-2 control-label' %>
-        <div class="col-sm-10">
-          <%= f.text_area :description, class: 'form-control', rows: 3 %>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :value, class: 'col-sm-2 control-label'%>
-        <div class="col-sm-10">
-          <%= f.number_field :value, class:'form-control', required: :required %>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :until, class: 'col-sm-2 control-label' %>
-        <div class="col-sm-10">
-          <%= f.text_field :until, class: 'form-control',  required: :required %>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <%= f.label :to_all, class: 'col-sm-2 control-label' %>
-        <div class="col-sm-10">
-           <%= f.check_box :to_all, { checked: true }, "true", "false"  %>
-        </div>
-      </div>
-      <div id="autoUpdate" style="display: none">
-        <%= f.fields_for :expenditureusers do |eu| %>
-          <%= eu.text_field :user_id, class: 'expusers' %>
-        <% end %>
-      </div>
-
-
-      <%= f.submit "Create", class: "btn btn-lg btn-primary" %>
-    <% end %>
-  </div>
-</div>
+<%= render 'shared/expenditure_form' %>

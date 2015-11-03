@@ -17,14 +17,12 @@
 //= require_tree .
 
 $(function() {
-  $("#expenditure_until").datepicker();
+  $("#expenditure_until").datepicker({
+    dateFormat: "yy-mm-dd"
+  });
 });
 
 
 $('#expenditure_to_all').change(function() {
   $('#autoUpdate').toggle();
 });
-
-// $('#expenditure_to_all').change(function () {
-//     $('#autoUpdate').toggle(this.checked);
-// }).change();

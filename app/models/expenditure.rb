@@ -7,7 +7,7 @@ class Expenditure < ActiveRecord::Base
                   :user_id,
                   :value,
                   :expenditureusers_attributes
-  before_save :divide_value
+  # before_save :divide_value
   has_many :expenditureusers, foreign_key: 'expenditure_id'
   has_many :users, through: :expenditureusers
 
@@ -20,14 +20,19 @@ class Expenditure < ActiveRecord::Base
   validates :description , presence: true
   validates :house_id, presence: true
   validates :state, presence: true
-  validates :to_all, presence: true
   validates :user_id, presence: true
   validates :value, presence: true
 
-
-  def divide_value
+  def divide_value(user)
     self.expenditureusers.each do |eu|
       eu.debt  = self.value / self.expenditureusers.size
+      if eu.user == user
+        eu.state = 'finished'
+        eu.request = 'Payed'
+      else
+        eu.user.debt = eu.user.debt + eu.debt
+        eu.user.save!
+      end
       eu.save!
     end
   end

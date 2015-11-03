@@ -1,0 +1,46 @@
+<h2 class="text-center"><span class="label label-primary">Your Debts</span></h2>
+<div class="row">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Creator</th>
+        <th>Description</th>
+        <th>State</th>
+        <th>Debt</th>
+        <th>Created At</th>
+        <th>Until</th>
+        <th>State Request</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% if @debts %>
+      <% @debts.each do |debt| %>
+        <% if debt.state == 'unfinished' %>
+        <tr>
+          <td><%= debt.expenditure.expenditureowner.name %></td>
+          <td><%= debt.expenditure.description %></td>
+          <% if debt.state == 'unfinished' %>
+            <td><h4><span class="label label-danger"><%=debt.state.capitalize %></span></h4></td>
+          <% elsif debt.state == 'finished' %>
+              <td><h4><span class="label label-success"><%=debt.state.capitalize %></span></h4></td>
+          <% end %>
+          <td><%= debt.debt %></td>
+          <td><%= time_ago_in_words(debt.expenditure.created_at) %></td>
+          <td><%= l debt.expenditure.until, format: :long %></td>
+          <td>
+            <h4><span class="label label-warning">
+              <%= debt.request.capitalize %>
+            </span></h4>
+            <% if debt.request == 'waiting' %>
+              <a href="#" class="btn btn-sm btn-success">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Send
+              </a>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+</div>
