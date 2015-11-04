@@ -36,5 +36,5 @@ HouseManager::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  config.i18n.available_locales = :ro
+  config.i18n.available_locales = ['en-US', :en]
 end
