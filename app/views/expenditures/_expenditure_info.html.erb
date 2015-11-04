@@ -1,12 +1,12 @@
 <ul class="list-group">
-  <li class="list-group-item active"><strong>Expenditure owner:</strong> <%= @expenditure.expenditureowner.name %></li>
+  <li class="list-group-item active"><strong>Expenditure owner:</strong> <%= @expenditure.owner.name %></li>
   <li class="list-group-item"><strong>Description:</strong> <%= @expenditure.description %></li>
   <li class="list-group-item"><strong>Value:</strong> <%= @expenditure.value %></li>
   <li class="list-group-item"><strong>State:</strong>
     <% if @expenditure.state == 'unfinished' %>
       <span class="label label-danger"><%= @expenditure.state.capitalize %></span>
     <% elsif @expenditure.state == 'finished' %>
-      <h4><span class="label label-success"><%= @expenditure.state.capitalize %></span></h4>
+      <span class="label label-success"><%= @expenditure.state.capitalize %></span>
     <% end %>
   </li>
   <li class="list-group-item"><strong>Created at:</strong> <%= time_ago_in_words(@expenditure.created_at) %></li>

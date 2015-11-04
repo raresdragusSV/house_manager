@@ -1,7 +1,7 @@
 class ExpendituresController < ApplicationController
 
   def create
-    @expenditure = current_user.expenditureowners.build(params[:expenditure])
+    @expenditure = current_user.expenditures.build(params[:expenditure])
     @expenditure.house = current_user.house
     if @expenditure.save
       flash[:success] = 'Expenditure created!'

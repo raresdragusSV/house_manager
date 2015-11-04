@@ -33,7 +33,7 @@
       <div class="form-group">
         <div class="col-sm-10 ">
           <div id="forall" style="display: none;">
-            <%= f.fields_for :expenditureusers do |eu| %>
+            <%= f.fields_for :expenditure_users do |eu| %>
               <div class="fields clearfix">
                 <%= eu.hidden_field :user_id, class: 'expusers' %>
                 <%= eu.object.user.name %>

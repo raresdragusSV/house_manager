@@ -5,7 +5,6 @@
       <tr>
         <th>Creator</th>
         <th>Description</th>
-        <th>State</th>
         <th>Debt</th>
         <th>Created At</th>
         <th>Until</th>
@@ -15,30 +14,24 @@
     <tbody>
     <% if @debts %>
       <% @debts.each do |debt| %>
-        <% if debt.state == 'unfinished' %>
-        <tr>
-          <td><%= debt.expenditure.expenditureowner.name %></td>
-          <td><%= debt.expenditure.description %></td>
-          <% if debt.state == 'unfinished' %>
-            <td><h4><span class="label label-danger"><%=debt.state.capitalize %></span></h4></td>
-          <% elsif debt.state == 'finished' %>
-              <td><h4><span class="label label-success"><%=debt.state.capitalize %></span></h4></td>
-          <% end %>
-          <td><%= debt.debt %></td>
-          <td><%= time_ago_in_words(debt.expenditure.created_at) %></td>
-          <td><%= l debt.expenditure.until, format: :long %></td>
-          <td>
-            <h4><span class="label label-warning">
-              <%= debt.request.capitalize %>
-            </span></h4>
-            <% if debt.request == 'waiting' %>
-              <%= link_to  confirm_payment_expenditureuser_path(debt), method: :post, class: 'btn btn-sm btn-success' do %>
-                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Send
+        <% if debt.state != 'Paid' %>
+          <tr>
+            <td><%= debt.expenditure.owner.name %></td>
+            <td><%= debt.expenditure.description %></td>
+            <td><%= debt.debt %></td>
+            <td><%= time_ago_in_words(debt.expenditure.created_at) %></td>
+            <td><%= l debt.expenditure.until, format: :long %></td>
+            <td>
+              <% if debt.state == 'Request sent' %>
+                <h4><span class="label label-warning"><%= debt.state %></span></h4>
+              <% elsif debt.state == 'Waiting' %>
+                <h4><span class="label label-danger"><%= debt.state %></span></h4>
+                <%= link_to  confirm_payment_expenditure_user_path(debt), method: :post, class: 'btn btn-sm btn-success' do %>
+                  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Send
+                <% end %>
               <% end %>
-            <% end %>
-
-          </td>
-        </tr>
+            </td>
+          </tr>
         <% end %>
       <% end %>
     <% end %>

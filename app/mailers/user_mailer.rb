@@ -17,8 +17,8 @@ class UserMailer < ActionMailer::Base
     mail(to: "#{@user.email}>", subject: 'Home Manager Project Invitation')
   end
 
-  def payment_confirmation(debt, expenditureowner)
-    @user = expenditureowner
+  def payment_confirmation(debt, owner)
+    @user = owner
     @debt = debt
     mail(to: "#{@user.email}>", subject: 'Payment Confirmation')
   end

@@ -3,4 +3,4 @@
 <p>The user <%= @debt.user.name %> sent request of payment for the
 expenditure <%= @debt.expenditure.description %></p>
 <br><br>
-<p> Please confirm with this link: <%= link_to 'Confirm payment',confirmation_accepted_expenditureuser_url(@debt) %></p>
+<p> Please confirm with this link: <%= link_to 'Confirm payment',confirmation_accepted_expenditure_user_url(@debt) %></p>

@@ -15,7 +15,7 @@ class UserInvitationsController < ApplicationController
                     password_confirmation: @password)
 
       @user.roles=(['regular'])
-      @user.house_id = current_user.house_id
+      @user.house = current_user.house
       @user.activate!
       flash[:success] = "Invitation sent at #{params[:user_invitation][:email]}!"
       @user.send_invitation(@password)

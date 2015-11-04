@@ -1,22 +1,3 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id                     :integer          not null, primary key
-#  name                   :string(255)
-#  email                  :string(255)
-#  created_at             :datetime
-#  updated_at             :datetime
-#  password_digest        :string(255)
-#  token                  :string(255)
-#  roles_mask             :integer
-#  state                  :string(255)
-#  password_reset_token   :string(255)
-#  password_reset_sent_at :datetime
-#  debt                   :float            default(0.0)
-#  house_id               :integer
-#
-
 class User < ActiveRecord::Base
   include ActiveRecord::Transitions
   attr_accessible :name, :email, :password, :password_confirmation
@@ -27,15 +8,15 @@ class User < ActiveRecord::Base
   has_many :houses, through: :house_admins
 
 
-  has_many :expenditureusers, foreign_key: 'user_id'
-  has_many :expenditures, through: :expenditureusers
+  has_many :expenditure_users, foreign_key: 'user_id'
+  has_many :expenditures, through: :expenditure_users
 
-  has_many :expenditureowners, foreign_key: 'user_id', class_name: 'Expenditure'
+  has_many :expenditures, foreign_key: 'user_id', class_name: 'Expenditure'
 
   belongs_to :house
 
 
-  scope :with_role, lambda{ |role| {conditions: "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
+  scope :with_role, lambda{ |role| { conditions: "roles_mask & #{ 2**ROLES.index(role.to_s) } > 0"} }
 
   ROLES = %w[admin regular]
 
@@ -47,7 +28,7 @@ class User < ActiveRecord::Base
     state :active
 
     event :activate do
-      transitions :to => :active, :from => :inactive
+      transitions to: :active, from: :inactive
     end
   end
 
@@ -76,7 +57,7 @@ class User < ActiveRecord::Base
   def send_password_reset
     self.password_reset_token = SecureRandom.urlsafe_base64
     self.password_reset_sent_at = Time.zone.now
-    save!# (validate: false)
+    save!
     UserMailer.password_reset(self).deliver
   end
 
@@ -98,6 +79,7 @@ class User < ActiveRecord::Base
 
   def self.find_home
   end
+
   private
 
   def create_token

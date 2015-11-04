@@ -21,9 +21,9 @@ class Ability
     can :edit, User, id: @user.id
     can :update, User, id: @user.id
     can :destroy, User, id: @user.id
-    can :confirm_payment, Expenditureuser, user_id: @user.id
-    can :confirmation_accepted, Expenditureuser do |eu|
-      eu.expenditure.expenditureowner = @user
+    can :confirm_payment, ExpenditureUser, user_id: @user.id
+    can :confirmation_accepted, ExpenditureUser do |eu|
+      eu.expenditure.owner = @user
     end
   end
 end

@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151103135929) do
+ActiveRecord::Schema.define(:version => 20151104160545) do
+
+  create_table "expenditure_users", :force => true do |t|
+    t.integer  "expenditure_id"
+    t.integer  "user_id"
+    t.string   "state",          :default => "Waiting"
+    t.float    "debt"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+  end
+
+  add_index "expenditure_users", ["expenditure_id", "user_id"], :name => "index_expenditure_users_on_expenditure_id_and_user_id", :unique => true
+  add_index "expenditure_users", ["expenditure_id"], :name => "index_expenditure_users_on_expenditure_id"
+  add_index "expenditure_users", ["user_id"], :name => "index_expenditure_users_on_user_id"
 
   create_table "expenditures", :force => true do |t|
     t.text     "description"

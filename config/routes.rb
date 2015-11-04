@@ -12,7 +12,7 @@ HouseManager::Application.routes.draw do
 
   resources :expenditures, only: [:create, :show]
 
-  resources :expenditureusers do
+  resources :expenditure_users do
     member do
       post :confirm_payment
       get :confirmation_accepted

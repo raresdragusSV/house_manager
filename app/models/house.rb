@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: houses
-#
-#  id         :integer          primary key
-#  name       :string(255)
-#  address    :string(255)
-#  city       :string(255)
-#  country    :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
 
 class House < ActiveRecord::Base
   attr_accessible :address, :city, :country, :name
@@ -28,6 +16,4 @@ class House < ActiveRecord::Base
                    length: { maximum: 150 }
   validates :country, presence: true,
                       length: { maximum: 150 }
-
-
 end

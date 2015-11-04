@@ -1,19 +1,18 @@
-class ExpenditureusersController < ApplicationController
+class ExpenditureUsersController < ApplicationController
   load_and_authorize_resource
 
   def confirm_payment
-    @debt = Expenditureuser.find(params[:id])
-    @debt.request = 'Request sent'
+    @debt = ExpenditureUser.find(params[:id])
+    @debt.state = 'Request sent'
     @debt.save!
-    UserMailer.payment_confirmation(@debt, @debt.expenditure.expenditureowner).deliver
+    UserMailer.payment_confirmation(@debt, @debt.expenditure.owner).deliver
     flash[:success] = 'Request of payment was sent to the owner of expenditure'
     redirect_to :back
   end
 
   def confirmation_accepted
-    @debt = Expenditureuser.find(params[:id])
-    @debt.state = 'finished'
-    @debt.request = 'Paid'
+    @debt = ExpenditureUser.find(params[:id])
+    @debt.state = 'Paid'
     @debt.save!
     if expenditure_finish?
       @debt.expenditure.state = 'finished'
@@ -28,8 +27,8 @@ class ExpenditureusersController < ApplicationController
   def expenditure_finish?
     expenditure = @debt.expenditure
     state = true
-    expenditure.expenditureusers.each do |eu|
-      if eu.state == 'finished'
+    expenditure.expenditure_users.each do |eu|
+      if eu.state == 'Paid'
         next
       else
         state = false
