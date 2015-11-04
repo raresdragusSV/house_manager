@@ -2,15 +2,6 @@ class UsersController < ApplicationController
   before_filter :find_token, only: :confirm
   load_and_authorize_resource
 
-
-  # before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
-  # before_filter :correct_user,   only: [:edit, :update]
-  # before_filter :admin_user,     only: :destroy
-  # before_filter :info_signed_in_user, only: [:new, :create]
-
-
-
-
   def index
     @users = User.paginate(page: params[:page])
   end
@@ -21,6 +12,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @expenditures = @user.expenditureowners
   end
 
   def create
@@ -79,6 +71,4 @@ class UsersController < ApplicationController
   def find_token
     @user = User.find_by_token(params[:id])
   end
-
-  private
 end

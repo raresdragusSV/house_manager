@@ -32,10 +32,11 @@
               <%= debt.request.capitalize %>
             </span></h4>
             <% if debt.request == 'waiting' %>
-              <a href="#" class="btn btn-sm btn-success">
+              <%= link_to  confirm_payment_expenditureuser_path(debt), method: :post, class: 'btn btn-sm btn-success' do %>
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Send
-              </a>
+              <% end %>
             <% end %>
+
           </td>
         </tr>
         <% end %>

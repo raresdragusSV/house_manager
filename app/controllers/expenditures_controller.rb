@@ -11,4 +11,8 @@ class ExpendituresController < ApplicationController
       render 'static_pages/home'
     end
   end
+
+  def show
+    @expenditure = Expenditure.find(params[:id])
+  end
 end

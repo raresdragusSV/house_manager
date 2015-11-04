@@ -9,7 +9,7 @@ class HousesController < ApplicationController
     if @house.save
       flash[:success] = 'House Project created!'
       current_user.house_admin!(@house)
-      current_user.house_id = @house.id
+      current_user.house = @house
       current_user.roles=(['admin'])
       current_user.save!
       redirect_to root_url

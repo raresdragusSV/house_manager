@@ -28,7 +28,7 @@ class Expenditure < ActiveRecord::Base
       eu.debt  = self.value / self.expenditureusers.size
       if eu.user == user
         eu.state = 'finished'
-        eu.request = 'Payed'
+        eu.request = 'Paid'
       else
         eu.user.debt = eu.user.debt + eu.debt
         eu.user.save!

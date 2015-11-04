@@ -9,7 +9,16 @@ HouseManager::Application.routes.draw do
   resources :password_resets, only: [:new, :edit, :create, :update]
   resources :houses
   resources :user_invitations, only: [:new, :create]
-  resources :expenditures
+
+  resources :expenditures, only: [:create, :show]
+
+  resources :expenditureusers do
+    member do
+      post :confirm_payment
+      get :confirmation_accepted
+    end
+  end
+
 
   root              to: 'static_pages#home'
 

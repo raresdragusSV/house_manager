@@ -14,14 +14,11 @@
             <li class="active"><%= link_to 'Home', root_path %></li>
             <li><%= link_to 'Contact', contact_path %></li>
             <% if signed_in? %>
-              <% if current_user.expenditureowners.any? %>
-                <li><%= link_to 'Expenditures', '' %></li>
-              <% end %>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Users <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <% if !current_user.house_id.nil? %>
-                    <li><%= link_to 'Project Users', house_path(current_user.house_id) %></li>
+                    <li><%= link_to 'House Users', house_path(current_user.house_id) %></li>
                   <% end %>
                   <li><%= link_to 'Invite Users', new_user_invitation_path %></li>
                 </ul>

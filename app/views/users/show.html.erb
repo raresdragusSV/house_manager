@@ -1,11 +1,12 @@
 <div class="row">
-  <aside class="col-sm-6">
-    <section>
-      <div class="page-header">
-        <h1>
-          <%= gravatar_for @user %>
-          <%= @user.name %>
-        </h1>
-      </div>
-    </section>
-  </aside>
+  <div class="col-sm-6">
+      <%= render 'shared/user_info' %>
+  </div>
+  <div class="col-sm-6">
+    <%= render 'shared/house_info' %>
+  </div>
+</div>
+<br><br>
+
+<%= render 'expenditures' %>
+

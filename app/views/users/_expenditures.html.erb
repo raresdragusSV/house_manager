@@ -1,0 +1,29 @@
+<h2 class="text-center"><span class="label label-primary">Your Expenditures</span></h2>
+<div class="row">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>State</th>
+        <th>Value</th>
+        <th>Created At</th>
+        <th>Until</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @expenditures.each do |exp| %>
+        <tr>
+          <td><%= link_to exp.description, exp %></td>
+          <% if exp.state == 'unfinished' %>
+            <td><h4><span class="label label-danger"><%= exp.state.capitalize %></span></h4></td>
+          <% elsif exp.state == 'finished' %>
+              <td><h4><span class="label label-success"><%=exp.state.capitalize %></span></h4></td>
+          <% end %>
+          <td><%= exp.value %></td>
+          <td><%= time_ago_in_words(exp.created_at) %></td>
+          <td><%= l exp.until, format: :long %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

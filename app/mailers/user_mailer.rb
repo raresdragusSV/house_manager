@@ -16,4 +16,10 @@ class UserMailer < ActionMailer::Base
     @password = password
     mail(to: "#{@user.email}>", subject: 'Home Manager Project Invitation')
   end
+
+  def payment_confirmation(debt, expenditureowner)
+    @user = expenditureowner
+    @debt = debt
+    mail(to: "#{@user.email}>", subject: 'Payment Confirmation')
+  end
 end

@@ -1,0 +1,6 @@
+<h1>Please Confirm the Payment</h1>
+
+<p>The user <%= @debt.user.name %> sent request of payment for the
+expenditure <%= @debt.expenditure.description %></p>
+<br><br>
+<p> Please confirm with this link: <%= link_to 'Confirm payment',confirmation_accepted_expenditureuser_url(@debt) %></p>

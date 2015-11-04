@@ -21,5 +21,7 @@ class Ability
     can :edit, User, id: @user.id
     can :update, User, id: @user.id
     can :destroy, User, id: @user.id
+    can :confirm_payment, Expenditureuser, user_id: @user.id
+    can :confirmation_accepted, Expenditureuser, expenditure: { user_id: @user.id }
   end
 end

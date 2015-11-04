@@ -1,0 +1,37 @@
+<div class="row">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Debt</th>
+        <th>State</th>
+        <th>State Request</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @expenditure.expenditureusers.each do |exp| %>
+      <tr>
+        <td> <%= exp.user.name %></td>
+        <td> <%= exp.debt %></td>
+        <% if exp.state == 'unfinished' %>
+            <td><h4><span class="label label-danger"><%= exp.state.capitalize %></span></h4></td>
+          <% elsif exp.state == 'finished' %>
+              <td><h4><span class="label label-success"><%=exp.state.capitalize %></span></h4></td>
+          <% end %>
+        </td>
+        <td>
+          <% if exp.request == 'Paid' %>
+            <h4><span class="label label-success">
+              <%= exp.request.capitalize %>
+            </span></h4>
+          <% else %>
+            <h4><span class="label label-warning">
+              <%= exp.request.capitalize %>
+            </span></h4>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
