@@ -2,14 +2,19 @@
 #
 # Table name: users
 #
-#  id              :integer          primary key
-#  name            :string(255)
-#  email           :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
-#  password_digest :string(255)
-#  token           :string(255)
-#  roles_mask      :integer
+#  id                     :integer          not null, primary key
+#  name                   :string(255)
+#  email                  :string(255)
+#  created_at             :datetime
+#  updated_at             :datetime
+#  password_digest        :string(255)
+#  token                  :string(255)
+#  roles_mask             :integer
+#  state                  :string(255)
+#  password_reset_token   :string(255)
+#  password_reset_sent_at :datetime
+#  debt                   :float            default(0.0)
+#  house_id               :integer
 #
 
 require 'spec_helper'

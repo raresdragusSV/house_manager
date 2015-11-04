@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: expenditures
+#
+#  id          :integer          primary key
+#  description :text
+#  value       :float
+#  to_all      :boolean
+#  house_id    :integer
+#  until       :datetime
+#  created_at  :datetime
+#  updated_at  :datetime
+#  user_id     :integer
+#  state       :string(255)      default("unfinished")
+#
+
 class Expenditure < ActiveRecord::Base
   attr_accessible :description,
                   :house_id,

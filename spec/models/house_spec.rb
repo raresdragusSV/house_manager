@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: houses
+#
+#  id         :integer          primary key
+#  name       :string(255)
+#  address    :string(255)
+#  city       :string(255)
+#  country    :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'spec_helper'
 
 describe House do

@@ -1,4 +1,6 @@
 class ExpenditureusersController < ApplicationController
+  load_and_authorize_resource
+
   def confirm_payment
     @debt = Expenditureuser.find(params[:id])
     @debt.request = 'Request sent'
